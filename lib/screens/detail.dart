@@ -36,14 +36,14 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Fetch Data Example'),
+          title: const Text('User Detail'),
         ),
         body: Center(
             child: FutureBuilder<User>(
                 future: futureUser,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Text(snapshot.data!.email);
+                    return Text(snapshot.data!.username);
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   }
