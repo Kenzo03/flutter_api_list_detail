@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../model/user.dart';
 import 'dart:convert';
+
+//Model
+import '../model/user.dart';
+
+//Component
+import '../components/blankslate.dart';
 
 Future<User> fetchUser(int id) async {
   final response = await http
@@ -43,13 +48,41 @@ class _DetailScreenState extends State<DetailScreen> {
                 future: futureUser,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        Text(snapshot.data!.username),
-                      ],
+                    User user = snapshot.data!;
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          const CircleAvatar(
+                            radius: 54,
+                            backgroundColor: Colors.black87,
+                            child: CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('images/avatar.png'),
+                                backgroundColor: Colors.white,
+                                radius: 48),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(user.name,
+                                  style: const TextStyle(fontSize: 16)),
+                              const SizedBox(width: 4),
+                              Text('@${user.username}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.black87))
+                            ],
+                          ),
+                          Text(user.email,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 14)),
+                        ],
+                      ),
                     );
                   } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
+                    return const Blankslate();
                   }
 
                   return const CircularProgressIndicator();

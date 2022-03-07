@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:api_list_detail/screens/detail.dart';
+//Screen
+import './detail.dart';
+
+//Model
 import '../model/user.dart';
+
+//Component
+import '../components/blankslate.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -70,23 +76,5 @@ class _ListScreenState extends State<ListScreen> {
                       }
                       return const CircularProgressIndicator();
                     }))));
-  }
-}
-
-class Blankslate extends StatelessWidget {
-  const Blankslate({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Icon(Icons.feedback_outlined, color: Colors.grey, size: 64),
-        SizedBox(height: 24),
-        Text('Something went wrong, please try again later.',
-            style: TextStyle(color: Colors.grey))
-      ],
-    );
   }
 }
