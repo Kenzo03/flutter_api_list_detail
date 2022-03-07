@@ -12,8 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'API List Detail',
-      debugShowCheckedModeBanner: false,
+      title: 'User List',
       initialRoute: '/',
       routes: {
         '/': (context) => const ListScreen(),

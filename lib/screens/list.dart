@@ -15,15 +15,34 @@ Future<List<User>> fetchUsers() async {
   }
 }
 
-class User {
-  final String name;
-  final int id;
-  final String email;
+class Company {
+  String name;
 
-  User({required this.name, required this.id, required this.email});
+  Company({required this.name});
+
+  factory Company.fromJson(Map<String, dynamic> json) {
+    return Company(name: json['name']);
+  }
+}
+
+class User {
+  String name;
+  int id;
+  String email;
+  Company company;
+
+  User(
+      {required this.name,
+      required this.id,
+      required this.email,
+      required this.company});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return User(id: json['id'], name: json['name'], email: json['email']);
+    return User(
+        id: json['id'],
+        name: json['name'],
+        email: json['email'],
+        company: Company.fromJson(json['company']));
   }
 }
 
@@ -46,11 +65,10 @@ class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Fetch Data Example',
         theme: ThemeData(primarySwatch: Colors.blue),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text('Fetch Data Example'),
+              title: const Text('User List'),
             ),
             body: Center(
                 child: FutureBuilder<List<User>>(
@@ -62,8 +80,10 @@ class _ListScreenState extends State<ListScreen> {
                             itemCount: user.length,
                             itemBuilder: (context, index) {
                               return ListTile(
+                                leading: Image.asset('images/avatar.png'),
                                 title: Text('Name: ${user[index].name}'),
-                                subtitle: Text('Email : ${user[index].email}'),
+                                subtitle: Text(
+                                    'Company : ${user[index].company.name}'),
                                 onTap: () {
                                   Navigator.push(
                                     context,
