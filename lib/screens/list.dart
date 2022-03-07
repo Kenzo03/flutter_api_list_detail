@@ -53,9 +53,8 @@ class _ListScreenState extends State<ListScreen> {
                             itemBuilder: (context, index) {
                               return ListTile(
                                 leading: Image.asset('images/avatar.png'),
-                                title: Text('Name: ${user[index].name}'),
-                                subtitle: Text(
-                                    'Company : ${user[index].company.name}'),
+                                title: Text(user[index].name),
+                                subtitle: Text(user[index].email),
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -67,20 +66,27 @@ class _ListScreenState extends State<ListScreen> {
                               );
                             });
                       } else if (snapshot.hasError) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.feedback_outlined,
-                                color: Colors.grey, size: 64),
-                            SizedBox(height: 24),
-                            Text(
-                                'Something went wrong, please try again later.',
-                                style: TextStyle(color: Colors.grey))
-                          ],
-                        );
+                        return const Blankslate();
                       }
                       return const CircularProgressIndicator();
                     }))));
+  }
+}
+
+class Blankslate extends StatelessWidget {
+  const Blankslate({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Icon(Icons.feedback_outlined, color: Colors.grey, size: 64),
+        SizedBox(height: 24),
+        Text('Something went wrong, please try again later.',
+            style: TextStyle(color: Colors.grey))
+      ],
+    );
   }
 }
