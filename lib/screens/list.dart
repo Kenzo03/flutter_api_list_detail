@@ -67,7 +67,18 @@ class _ListScreenState extends State<ListScreen> {
                               );
                             });
                       } else if (snapshot.hasError) {
-                        return Text('${snapshot.error}');
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.feedback_outlined,
+                                color: Colors.grey, size: 64),
+                            SizedBox(height: 24),
+                            Text(
+                                'Something went wrong, please try again later.',
+                                style: TextStyle(color: Colors.grey))
+                          ],
+                        );
                       }
                       return const CircularProgressIndicator();
                     }))));
