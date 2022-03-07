@@ -7,6 +7,7 @@ import '../model/user.dart';
 
 //Component
 import '../components/blankslate.dart';
+import '../components/custom_circle_avatar.dart';
 
 Future<User> fetchUser(int id) async {
   final response = await http
@@ -52,32 +53,11 @@ class _DetailScreenState extends State<DetailScreen> {
                     return Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
-                        children: [
-                          const CircleAvatar(
-                            radius: 54,
-                            backgroundColor: Colors.black87,
-                            child: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('images/avatar.png'),
-                                backgroundColor: Colors.white,
-                                radius: 48),
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: CustomCard(user: user),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(user.name,
-                                  style: const TextStyle(fontSize: 16)),
-                              const SizedBox(width: 4),
-                              Text('@${user.username}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.black87))
-                            ],
-                          ),
-                          Text(user.email,
-                              style: const TextStyle(
-                                  color: Colors.grey, fontSize: 14)),
                         ],
                       ),
                     );
@@ -87,5 +67,71 @@ class _DetailScreenState extends State<DetailScreen> {
 
                   return const CircularProgressIndicator();
                 })));
+  }
+}
+
+class CustomCard extends StatelessWidget {
+  final User user;
+
+  const CustomCard({Key? key, required this.user}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0),
+      child: Stack(
+        children: <Widget>[
+          Card(
+            child: SizedBox(
+              height: 400.0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 80),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(user.name, style: const TextStyle(fontSize: 16)),
+                        const SizedBox(width: 4),
+                        Text('@${user.username}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.black54))
+                      ],
+                    ),
+                  ),
+                  Text(user.email,
+                      style: const TextStyle(color: Colors.grey, fontSize: 14)),
+                  const SizedBox(height: 24),
+                  const Text('Company Information',
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 12),
+                  Text(user.company.name,
+                      style:
+                          const TextStyle(color: Colors.black87, fontSize: 14))
+                ],
+              ),
+            ),
+          ),
+          FractionalTranslation(
+            translation: const Offset(0.0, -0.4),
+            child: Align(
+              child: BorderedCircleAvatar(
+                borderColor: Colors.grey.shade700,
+                imgPath: 'images/avatar.png',
+                borderWidth: 4,
+                rad: 54,
+              ),
+              alignment: const FractionalOffset(0.5, 0.0),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

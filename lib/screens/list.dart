@@ -8,6 +8,7 @@ import '../model/user.dart';
 
 //Component
 import '../components/blankslate.dart';
+import '../components/custom_circle_avatar.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -58,7 +59,12 @@ class _ListScreenState extends State<ListScreen> {
                             itemCount: user.length,
                             itemBuilder: (context, index) {
                               return ListTile(
-                                leading: Image.asset('images/avatar.png'),
+                                leading: BorderedCircleAvatar(
+                                  borderColor: Colors.grey.shade700,
+                                  imgPath: 'images/avatar.png',
+                                  borderWidth: 2,
+                                  rad: 20,
+                                ),
                                 title: Text(user[index].name),
                                 subtitle: Text(user[index].email),
                                 onTap: () {
