@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:api_list_detail/screens/detail.dart';
+import '../model/user.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -12,37 +15,6 @@ Future<List<User>> fetchUsers() async {
     return jsonResponse.map((user) => User.fromJson(user)).toList();
   } else {
     throw Exception('Failed to load user');
-  }
-}
-
-class Company {
-  String name;
-
-  Company({required this.name});
-
-  factory Company.fromJson(Map<String, dynamic> json) {
-    return Company(name: json['name']);
-  }
-}
-
-class User {
-  String name;
-  int id;
-  String email;
-  Company company;
-
-  User(
-      {required this.name,
-      required this.id,
-      required this.email,
-      required this.company});
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-        id: json['id'],
-        name: json['name'],
-        email: json['email'],
-        company: Company.fromJson(json['company']));
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../model/user.dart';
 import 'dart:convert';
 
 Future<User> fetchUser(int id) async {
@@ -10,27 +11,6 @@ Future<User> fetchUser(int id) async {
     return User.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('User not found!');
-  }
-}
-
-class User {
-  final String name;
-  final int id;
-  final String email;
-  final String username;
-
-  User(
-      {required this.name,
-      required this.id,
-      required this.email,
-      required this.username});
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-        id: json['id'],
-        name: json['name'],
-        email: json['email'],
-        username: json['username']);
   }
 }
 
@@ -63,7 +43,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 future: futureUser,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Text(snapshot.data!.username);
+                    return Text(snapshot.data!.email);
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   }
