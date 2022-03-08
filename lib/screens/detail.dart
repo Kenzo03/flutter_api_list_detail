@@ -30,6 +30,7 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('User Detail'),
+          actions: const <Widget>[FavoriteButton()],
         ),
         body: Center(
             child: FutureBuilder<User>(
@@ -70,7 +71,7 @@ class CustomCard extends StatelessWidget {
         children: <Widget>[
           Card(
             child: SizedBox(
-              height: 300.0,
+              height: 330.0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -80,18 +81,12 @@ class CustomCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(user.name, style: const TextStyle(fontSize: 16)),
-                        const SizedBox(width: 4),
-                        Text('@${user.username}',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54))
                       ],
                     ),
                   ),
-                  Text(user.email,
+                  Text('@${user.username}',
                       style: const TextStyle(color: Colors.grey, fontSize: 14)),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
@@ -100,12 +95,31 @@ class CustomCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
+                              Icons.mail_outline,
+                              color: Colors.grey,
+                              size: 24,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(user.email,
+                                style: const TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
                               Icons.house_outlined,
                               color: Colors.grey,
                               size: 24,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
                             Text(
@@ -124,12 +138,12 @@ class CustomCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.phone_callback_outlined,
                               color: Colors.grey,
                               size: 24,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
                             Text(user.phone,
@@ -143,19 +157,19 @@ class CustomCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.domain,
                               color: Colors.grey,
                               size: 24,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
                             Text(user.company.name,
                                 style: const TextStyle(
                                     color: Colors.black54,
                                     fontSize: 16,
-                                    fontWeight: FontWeight.bold))
+                                    fontWeight: FontWeight.bold)),
                           ],
                         )
                       ],
@@ -180,5 +194,33 @@ class CustomCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class FavoriteButton extends StatefulWidget {
+  const FavoriteButton({Key? key}) : super(key: key);
+
+  @override
+  State<FavoriteButton> createState() => _FavoriteButtonState();
+}
+
+class _FavoriteButtonState extends State<FavoriteButton> {
+  bool isFavorite = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        icon: Icon(isFavorite ? Icons.star : Icons.star_border,
+            color: Colors.yellow),
+        onPressed: () {
+          setState(() {
+            isFavorite = !isFavorite;
+            SnackBar snackBar = SnackBar(
+                content: Text(isFavorite
+                    ? 'Added to Favorite'
+                    : 'Removed from Favorite'));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          });
+        });
   }
 }
