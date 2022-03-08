@@ -20,23 +20,10 @@ Future<User> fetchUser(int id) async {
   }
 }
 
-class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key, required this.id}) : super(key: key);
-
+class DetailScreen extends StatelessWidget {
   final int id;
 
-  @override
-  _DetailScreenState createState() => _DetailScreenState();
-}
-
-class _DetailScreenState extends State<DetailScreen> {
-  late Future<User> futureUser;
-
-  @override
-  void initState() {
-    super.initState();
-    futureUser = fetchUser(widget.id);
-  }
+  const DetailScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +33,7 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
         body: Center(
             child: FutureBuilder<User>(
-                future: futureUser,
+                future: fetchUser(id),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     User user = snapshot.data!;
@@ -83,7 +70,7 @@ class CustomCard extends StatelessWidget {
         children: <Widget>[
           Card(
             child: SizedBox(
-              height: 400.0,
+              height: 300.0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -105,15 +92,75 @@ class CustomCard extends StatelessWidget {
                   Text(user.email,
                       style: const TextStyle(color: Colors.grey, fontSize: 14)),
                   const SizedBox(height: 24),
-                  const Text('Company Information',
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 12),
-                  Text(user.company.name,
-                      style:
-                          const TextStyle(color: Colors.black87, fontSize: 14))
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.house_outlined,
+                              color: Colors.grey,
+                              size: 24,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                                user.address.street +
+                                    ', ' +
+                                    user.address.city +
+                                    ', ' +
+                                    user.address.zip,
+                                style: const TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.phone_callback_outlined,
+                              color: Colors.grey,
+                              size: 24,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(user.phone,
+                                style: const TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.domain,
+                              color: Colors.grey,
+                              size: 24,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(user.company.name,
+                                style: const TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

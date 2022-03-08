@@ -25,21 +25,8 @@ Future<List<User>> fetchUsers() async {
   }
 }
 
-class ListScreen extends StatefulWidget {
+class ListScreen extends StatelessWidget {
   const ListScreen({Key? key}) : super(key: key);
-
-  @override
-  _ListScreenState createState() => _ListScreenState();
-}
-
-class _ListScreenState extends State<ListScreen> {
-  late Future<List<User>> futureUsers;
-
-  @override
-  void initState() {
-    super.initState();
-    futureUsers = fetchUsers();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +38,7 @@ class _ListScreenState extends State<ListScreen> {
             ),
             body: Center(
                 child: FutureBuilder<List<User>>(
-                    future: futureUsers,
+                    future: fetchUsers(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List<User> user = snapshot.data!;
