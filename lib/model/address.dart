@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 class Address {
   String street;
   String city;

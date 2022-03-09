@@ -103,11 +103,13 @@ class CustomCard extends StatelessWidget {
                             const SizedBox(
                               width: 8,
                             ),
-                            Text(user.email,
-                                style: const TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold))
+                            Flexible(
+                              child: Text(user.email,
+                                  style: const TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                            )
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -122,16 +124,18 @@ class CustomCard extends StatelessWidget {
                             const SizedBox(
                               width: 8,
                             ),
-                            Text(
-                                user.address.street +
-                                    ', ' +
-                                    user.address.city +
-                                    ', ' +
-                                    user.address.zip,
-                                style: const TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold))
+                            Flexible(
+                              child: Text(
+                                  user.address.street +
+                                      ', ' +
+                                      user.address.city +
+                                      ', ' +
+                                      user.address.zip,
+                                  style: const TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                            )
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -146,11 +150,13 @@ class CustomCard extends StatelessWidget {
                             const SizedBox(
                               width: 8,
                             ),
-                            Text(user.phone,
-                                style: const TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold))
+                            Flexible(
+                              child: Text(user.phone,
+                                  style: const TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                            )
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -165,11 +171,13 @@ class CustomCard extends StatelessWidget {
                             const SizedBox(
                               width: 8,
                             ),
-                            Text(user.company.name,
-                                style: const TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold)),
+                            Flexible(
+                              child: Text(user.company.name,
+                                  style: const TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                            ),
                           ],
                         )
                       ],
